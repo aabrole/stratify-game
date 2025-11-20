@@ -64,7 +64,7 @@ export const upsertFromClerk = internalMutation({
   },
 });
 
-// Delete user and their todos (internal only)
+// Delete user and their data (internal only)
 export const deleteUser = internalMutation({
   args: { clerkId: v.string() },
   handler: async (ctx, { clerkId }) => {
@@ -75,14 +75,34 @@ export const deleteUser = internalMutation({
 
     if (!user) return;
 
-    // Delete all user's todos
-    const todos = await ctx.db
-      .query("todos")
+    // Delete all user's attempts
+    const attempts = await ctx.db
+      .query("attempts")
       .withIndex("by_user", q => q.eq("userId", clerkId))
       .collect();
 
-    for (const todo of todos) {
-      await ctx.db.delete(todo._id);
+    for (const attempt of attempts) {
+      await ctx.db.delete(attempt._id);
+    }
+
+    // Delete all user's sessions
+    const sessions = await ctx.db
+      .query("sessions")
+      .withIndex("by_user", q => q.eq("userId", clerkId))
+      .collect();
+
+    for (const session of sessions) {
+      await ctx.db.delete(session._id);
+    }
+
+    // Delete all user's pattern stats
+    const patternStats = await ctx.db
+      .query("patternStats")
+      .withIndex("by_user", q => q.eq("userId", clerkId))
+      .collect();
+
+    for (const stat of patternStats) {
+      await ctx.db.delete(stat._id);
     }
 
     // Delete user

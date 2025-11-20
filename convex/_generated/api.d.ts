@@ -13,9 +13,11 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as analytics from "../analytics.js";
 import type * as auth from "../auth.js";
+import type * as game from "../game.js";
 import type * as http from "../http.js";
-import type * as todos from "../todos.js";
+import type * as quiz from "../quiz.js";
 import type * as users from "../users.js";
 
 /**
@@ -27,9 +29,11 @@ import type * as users from "../users.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  analytics: typeof analytics;
   auth: typeof auth;
+  game: typeof game;
   http: typeof http;
-  todos: typeof todos;
+  quiz: typeof quiz;
   users: typeof users;
 }>;
 export declare const api: FilterApi<

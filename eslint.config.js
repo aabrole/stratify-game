@@ -1,10 +1,15 @@
-// https://docs.expo.dev/guides/using-eslint/
-const { defineConfig } = require('eslint/config');
-const expoConfig = require("eslint-config-expo/flat");
+// ESLint configuration for Next.js (Flat Config)
+const { FlatCompat } = require('@eslint/eslintrc');
+const js = require('@eslint/js');
 
-module.exports = defineConfig([
-  expoConfig,
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+});
+
+module.exports = [
   {
-    ignores: ["dist/*"],
-  }
-]);
+    ignores: ['dist/*', '.next/*', 'node_modules/*'],
+  },
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+];
