@@ -10,6 +10,19 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Stratify - Candlestick Pattern Trainer",
   description: "Learn to recognize candlestick patterns with interactive training",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+    viewportFit: "cover",
+  },
+  themeColor: "#1a1a2e",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Stratify",
+  },
 };
 
 export default function RootLayout({

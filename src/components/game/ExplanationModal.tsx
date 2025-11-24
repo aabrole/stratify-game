@@ -2,12 +2,14 @@
 
 import React from 'react';
 import { Overlay } from './Overlay';
-import { PatternType } from '@/lib/game/patternGenerator';
+import { PatternType, Candle } from '@/lib/game/patternGenerator';
 import { getExplanation } from '@/lib/game/explanations';
+import { StaticCandleChart } from './StaticCandleChart';
 
 interface ExplanationModalProps {
   isOpen: boolean;
   pattern: PatternType | null;
+  candles: Candle[] | null;
   xpEarned: number;
   onContinue: () => void;
 }
@@ -15,6 +17,7 @@ interface ExplanationModalProps {
 export function ExplanationModal({
   isOpen,
   pattern,
+  candles,
   xpEarned,
   onContinue,
 }: ExplanationModalProps) {
@@ -24,7 +27,7 @@ export function ExplanationModal({
 
   return (
     <Overlay isOpen={isOpen} onClose={onContinue}>
-      <div className="modal-card">
+      <div className="modal-card max-w-4xl">
         <div className="flex items-center justify-between mb-4">
           <h2 className="modal-title">{explanation.title}</h2>
           <div className="xp-badge">+{xpEarned} XP</div>
@@ -32,6 +35,11 @@ export function ExplanationModal({
 
         <div className="modal-content">
           <p className="text-gray-300 mb-4">{explanation.description}</p>
+
+          {/* Static candle visualization with labels */}
+          {candles && candles.length > 0 && (
+            <StaticCandleChart candles={candles} />
+          )}
 
           <div className="mb-4">
             <h3 className="text-lg font-semibold mb-2 text-cyan-400">The Logic:</h3>

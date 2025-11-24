@@ -18,7 +18,15 @@
       "Bash(git remote remove:*)",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "Bash(vercel --version:*)"
+      "Bash(vercel --version:*)",
+      "Bash(vercel --prod:*)",
+      "Bash(vercel login)",
+      "Bash(npx convex deploy:*)",
+      "Bash(vercel env add:*)",
+      "Bash(vercel env:*)",
+      "Bash(vercel inspect:*)",
+      "Bash(vercel domains:*)",
+      "Bash(nslookup:*)"
     ],
     "deny": [],
     "ask": []

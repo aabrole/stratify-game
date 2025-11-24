@@ -16,18 +16,43 @@ interface AnimatedChartProps {
  */
 export function AnimatedChart({
   candles,
-  width = 700,
-  height = 400,
+  width: propWidth,
+  height: propHeight,
   onAnimationComplete,
 }: AnimatedChartProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number>();
   const onCompleteRef = useRef(onAnimationComplete);
+
+  // Responsive sizing
+  const [dimensions, setDimensions] = React.useState({
+    width: propWidth || 700,
+    height: propHeight || 400,
+  });
 
   // Update the ref when callback changes
   useEffect(() => {
     onCompleteRef.current = onAnimationComplete;
   }, [onAnimationComplete]);
+
+  // Handle responsive sizing
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (!containerRef.current) return;
+      const containerWidth = containerRef.current.offsetWidth;
+      const newWidth = Math.min(containerWidth - 32, propWidth || 700); // 32px for padding
+      const aspectRatio = (propHeight || 400) / (propWidth || 700);
+      setDimensions({
+        width: newWidth,
+        height: newWidth * aspectRatio,
+      });
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, [propWidth, propHeight]);
 
   // Create a stable key from candles to detect actual changes
   const candlesKey = useMemo(() => {
@@ -40,6 +65,8 @@ export function AnimatedChart({
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    const { width, height } = dimensions;
 
     // Set canvas size for high DPI displays
     const dpr = window.devicePixelRatio || 1;
@@ -129,7 +156,7 @@ export function AnimatedChart({
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [candlesKey, width, height]); // Use candlesKey instead of candles array
+  }, [candlesKey, dimensions.width, dimensions.height]); // Use candlesKey and dimensions
 
 
   const drawGrid = (
@@ -223,13 +250,15 @@ export function AnimatedChart({
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div ref={containerRef} className="flex justify-center items-center w-full px-4">
       <canvas
         ref={canvasRef}
-        className="rounded-lg"
+        className="rounded-lg w-full"
         style={{
           background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+          maxWidth: '100%',
+          height: 'auto',
         }}
       />
     </div>

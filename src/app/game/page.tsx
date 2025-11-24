@@ -75,16 +75,9 @@ export default function GamePage() {
       );
       setLastXpEarned(result.xpEarned);
 
-      if (isCorrect) {
-        setGameState('correct');
-        setShowExplanation(true);
-      } else {
-        setGameState('wrong');
-        // Auto-advance after wrong answer
-        setTimeout(() => {
-          startNewRound();
-        }, 2000);
-      }
+      // Show explanation for both correct and wrong answers
+      setGameState(isCorrect ? 'correct' : 'wrong');
+      setShowExplanation(true);
     } catch (error) {
       console.error('Failed to record round:', error);
     }
@@ -198,6 +191,7 @@ export default function GamePage() {
       <ExplanationModal
         isOpen={showExplanation}
         pattern={currentPattern?.pattern || null}
+        candles={currentPattern?.candles || null}
         xpEarned={lastXpEarned}
         onContinue={handleExplanationContinue}
       />
