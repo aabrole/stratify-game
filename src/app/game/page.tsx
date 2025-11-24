@@ -22,7 +22,7 @@ interface ToastState {
 
 export default function GamePage() {
   const { isSignedIn } = useAuth();
-  const { progress, recordRound, isLoading } = useGameState();
+  const { progress, recordRound, resetProgress, isLoading } = useGameState();
 
   // Game state
   const [gameState, setGameState] = useState<GameState>('welcome');
@@ -55,10 +55,12 @@ export default function GamePage() {
     const isCorrect = answer === currentPattern.pattern;
     const responseTime = answerStartTime > 0 ? Date.now() - answerStartTime : undefined;
 
-    // Show toast
+    // Show toast with correct answer if wrong
     setToast({
       show: true,
-      message: isCorrect ? 'Correct!' : 'Wrong!',
+      message: isCorrect
+        ? 'Correct!'
+        : `Wrong! It was ${currentPattern.pattern.toUpperCase()}`,
       type: isCorrect ? 'success' : 'error',
     });
 
@@ -94,10 +96,13 @@ export default function GamePage() {
     startNewRound();
   };
 
-  // Handle replay
-  const handleReplay = () => {
-    if (currentPattern) {
-      setGameState('animating');
+  // Handle reset/replay - generates new pattern AND resets progress
+  const handleReset = async () => {
+    try {
+      await resetProgress();
+      startNewRound();
+    } catch (error) {
+      console.error('Failed to reset progress:', error);
     }
   };
 
@@ -120,7 +125,11 @@ export default function GamePage() {
       const keyMap: Record<string, PatternType> = {
         '1': '2-1-2',
         '2': '3-1-2',
-        '3': 'outside',
+        '3': '2-2-2',
+        '4': '1-1-1',
+        '5': '3-2-2',
+        '6': '1-2-2',
+        '7': 'outside',
         '0': 'none',
       };
 
@@ -179,7 +188,7 @@ export default function GamePage() {
       <GameControls
         onAnswer={handleAnswer}
         onTutorial={handleTutorial}
-        onReplay={handleReplay}
+        onReplay={handleReset}
         disabled={gameState !== 'waiting'}
       />
 
@@ -199,6 +208,22 @@ export default function GamePage() {
       {toast.show && (
         <Toast message={toast.message} type={toast.type} onDismiss={dismissToast} />
       )}
+
+      {/* Footer with Buy Me a Coffee */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <a
+          href="https://www.buymeacoffee.com/thinktradex"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block hover:scale-105 transition-transform md:hidden"
+        >
+          <img
+            src="https://img.buymeacoffee.com/button-api/?text=Support App&emoji=☕&slug=thinktradex&button_colour=2ebd7a&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=FFDD00"
+            alt="Buy Me A Coffee"
+            className="h-10 shadow-lg rounded"
+          />
+        </a>
+      </div>
     </div>
   );
 }

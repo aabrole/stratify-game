@@ -27,6 +27,7 @@ export function useGameState() {
   // Fetch user progress from Convex
   const serverProgress = useQuery(api.game.getUserProgress);
   const recordRoundMutation = useMutation(api.game.recordRound);
+  const resetProgressMutation = useMutation(api.game.resetProgress);
 
   // Local state synchronized with server
   const [progress, setProgress] = useState<GameProgress>({
@@ -96,9 +97,29 @@ export function useGameState() {
     }
   };
 
+  // Reset all progress (XP, level, streak, rounds)
+  const resetProgress = async (): Promise<void> => {
+    try {
+      await resetProgressMutation();
+
+      // Reset local state immediately
+      setProgress({
+        xp: 0,
+        level: 1,
+        streak: 0,
+        totalRounds: 0,
+        correctRounds: 0,
+      });
+    } catch (error) {
+      console.error('Failed to reset progress:', error);
+      throw error;
+    }
+  };
+
   return {
     progress,
     recordRound,
+    resetProgress,
     getXpForNextLevel,
     getLevelProgress,
     getAccuracy,

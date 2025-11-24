@@ -83,8 +83,8 @@ export function AnimatedChart({
       // Draw grid and labels
       drawGrid(ctxParam, padding, chartWidth, chartHeight, paddedHigh, paddedLow, paddedRange);
 
-      // Calculate candle positions
-      const candleWidth = 80;
+      // Calculate candle positions (optimized for 4 candles)
+      const candleWidth = 70;
       const spacing = (chartWidth - candleWidth * candles.length) / (candles.length + 1);
 
       // Draw candles with animation

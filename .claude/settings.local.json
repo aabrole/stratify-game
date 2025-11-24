@@ -12,7 +12,13 @@
       "Bash(npx shadcn@latest add:*)",
       "Bash(test:*)",
       "Bash(echo:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git remote remove:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(vercel --version:*)"
     ],
     "deny": [],
     "ask": []
