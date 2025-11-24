@@ -62,18 +62,18 @@ export function Navigation() {
           </div>
 
           {/* Auth Buttons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-nowrap">
             {/* Buy Me a Coffee */}
             <a
               href="https://www.buymeacoffee.com/thinktradex"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:block hover:opacity-80 transition-opacity"
+              className="hover:opacity-80 transition-opacity flex-shrink-0"
             >
               <img
                 src="https://img.buymeacoffee.com/button-api/?text=Keep This App Online&emoji=☕&slug=thinktradex&button_colour=2ebd7a&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=FFDD00"
                 alt="Buy Me A Coffee"
-                className="h-9"
+                className="h-7 sm:h-8 md:h-9"
               />
             </a>
 
@@ -83,12 +83,12 @@ export function Navigation() {
             <SignedOut>
               <div className="flex gap-2">
                 <SignInButton mode="modal">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm px-2 sm:px-3">
                     Sign In
                   </Button>
                 </SignInButton>
                 <SignUpButton mode="modal">
-                  <Button size="sm">
+                  <Button size="sm" className="text-xs sm:text-sm px-2 sm:px-3">
                     Sign Up
                   </Button>
                 </SignUpButton>

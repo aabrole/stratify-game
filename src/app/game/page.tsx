@@ -202,22 +202,6 @@ export default function GamePage() {
       {toast.show && (
         <Toast message={toast.message} type={toast.type} onDismiss={dismissToast} />
       )}
-
-      {/* Footer with Buy Me a Coffee */}
-      <div className="fixed bottom-4 right-4 z-50">
-        <a
-          href="https://www.buymeacoffee.com/thinktradex"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block hover:scale-105 transition-transform md:hidden"
-        >
-          <img
-            src="https://img.buymeacoffee.com/button-api/?text=Support App&emoji=☕&slug=thinktradex&button_colour=2ebd7a&font_colour=000000&font_family=Arial&outline_colour=000000&coffee_colour=FFDD00"
-            alt="Buy Me A Coffee"
-            className="h-10 shadow-lg rounded"
-          />
-        </a>
-      </div>
     </div>
   );
 }

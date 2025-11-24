@@ -250,17 +250,19 @@ export function AnimatedChart({
   };
 
   return (
-    <div ref={containerRef} className="flex justify-center items-center w-full px-4">
-      <canvas
-        ref={canvasRef}
-        className="rounded-lg w-full"
-        style={{
-          background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
-          maxWidth: '100%',
-          height: 'auto',
-        }}
-      />
+    <div ref={containerRef} className="flex justify-center items-center w-full px-2 sm:px-4">
+      <div className="w-full max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl">
+        <canvas
+          ref={canvasRef}
+          className="rounded-lg w-full h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px]"
+          style={{
+            background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)',
+            maxWidth: '100%',
+            height: 'auto',
+          }}
+        />
+      </div>
     </div>
   );
 }

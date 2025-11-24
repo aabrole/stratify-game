@@ -29,9 +29,9 @@ export function GameControls({
 
   return (
     <div className="game-controls">
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-6">
         {/* Answer Buttons */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-3 sm:mb-4">
           {answerButtons.map((btn) => (
             <button
               key={btn.pattern}
@@ -40,8 +40,8 @@ export function GameControls({
               className="answer-button"
             >
               <div className="answer-label">
-                <span className="font-bold text-lg">{btn.label}</span>
-                <span className="text-sm text-gray-400 ml-1">{btn.description}</span>
+                <span className="font-bold text-base md:text-lg">{btn.label}</span>
+                <span className="text-xs sm:text-sm text-gray-400 ml-1">{btn.description}</span>
               </div>
               <div className="answer-hotkey">Press {btn.hotkey}</div>
             </button>
@@ -49,16 +49,16 @@ export function GameControls({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center gap-3 sm:gap-4">
           <div className="relative group">
-            <button onClick={onReplay} className="action-button" disabled={disabled}>
+            <button onClick={onReplay} className="action-button text-sm sm:text-base" disabled={disabled}>
               🔄 Reset
             </button>
             <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-red-600 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
               ⚠️ This will reset all progress (XP, Level, Streak)
             </div>
           </div>
-          <button onClick={onTutorial} className="action-button">
+          <button onClick={onTutorial} className="action-button text-sm sm:text-base">
             📚 Tutorial
           </button>
         </div>
