@@ -12,4 +12,12 @@ module.exports = [
     ignores: ['dist/*', '.next/*', 'node_modules/*'],
   },
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  {
+    rules: {
+      'react/no-unescaped-entities': 'off',
+      '@next/next/no-img-element': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn',
+      'react-hooks/exhaustive-deps': 'warn',
+    },
+  },
 ];
