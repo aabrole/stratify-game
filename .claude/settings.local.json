@@ -26,7 +26,8 @@
       "Bash(vercel env:*)",
       "Bash(vercel inspect:*)",
       "Bash(vercel domains:*)",
-      "Bash(nslookup:*)"
+      "Bash(nslookup:*)",
+      "Bash(npm audit fix:*)"
     ],
     "deny": [],
     "ask": []
