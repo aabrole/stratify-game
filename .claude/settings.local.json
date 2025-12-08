@@ -27,7 +27,12 @@
       "Bash(vercel inspect:*)",
       "Bash(vercel domains:*)",
       "Bash(nslookup:*)",
-      "Bash(npm audit fix:*)"
+      "Bash(npm audit fix:*)",
+      "Bash(node scripts/import-users.js:*)",
+      "Bash(curl -I https://stratify.help)",
+      "Bash(curl:*)",
+      "Bash(printf:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
